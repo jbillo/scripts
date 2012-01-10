@@ -5,6 +5,10 @@
 
 """
 Version history:
+    2012-01-10 (jbillo):
+        Second release. Look for WP_DEBUG *or* WPLANG as WordPress 3.3.x
+        apparently doesn't include WPLANG in a stock wp-config.php file.
+    
 	2011-03-07 (jbillo):
 		Initial release, some bugfixes for web publication. Added UID check.
 		Also modified WP_DEBUG locate to WPLANG for older WordPress sites.
@@ -53,8 +57,11 @@ config = f.read()
 f.close()
 
 if config.find("FS_METHOD") == -1:
-    # Find the position in config where we have the WP_DEBUG define.
+    # Find the position in config where we have the WP_DEBUG or WPLANG define.
     insert_pos = config.find("define ('WPLANG',")
+    if insert_pos == -1:
+        insert_pos = config.find("define('WP_DEBUG',")
+
     if insert_pos == -1:
         print "E_FSMETHOD: Could not locate suitable position to add FS_METHOD directive. Add define('FS_METHOD', 'direct'); to " + wordpress_dir + "/wp-config.php.\n"
     else:
