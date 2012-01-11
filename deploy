@@ -1,3 +1,2 @@
 #!/bin/bash
-git commit
-git push origin master
+git commit -a && git push origin master
