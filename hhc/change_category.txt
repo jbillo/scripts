@@ -1,0 +1,20 @@
+-- This series of commands is intended to update a given category for a particular brand/pattern combination.
+
+-- First, get all the categories in the system:
+
+select tid, name from term_data where vid = 7;
+
+-- Then get the offending category based on the brand/pattern
+
+select * from hhc_product_full_categories where pattern in ('Atlas', 'Sahara') and brand = 'Nachtmann';
+
+-- Once you have the category to replace (eg 1384 --> 1389 for Glassware to Home Decor),
+-- update term_node with the vids in question.
+
+\T /tmp/out.txt
+select vid from hhc_product_full_categories where pattern in ('Atlas', 'Sahara') and brand = 'Nachtmann' and category_term_id = 1384;
+\! sqlin /tmp/out.txt
+
+-- Copy and paste the result from sqlin to the following query's IN condition:
+
+update term_node set tid = 1389 where tid = 1384 and vid in ('00000', '00001', '00002');
