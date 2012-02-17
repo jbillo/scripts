@@ -1,0 +1,10 @@
+-- get order ID number
+select * from uc_order_line_items where order_id = ?;
+
+-- update shipping amount
+update uc_order_line_items set amount = amount + (select amount from uc_line_items where order_id = ? and type = 'insurance'), name = concat(name, ' and Insurance') where type = 'shipping';
+
+-- delete insurance line item
+delete from uc_order_line_items where type = 'insurance' and order_id = ?;
+
+
