@@ -193,23 +193,43 @@ function get_html($url) {
 
 $content = "";
 $next_pg = TRUE;
+$current_pg = 1;
 $base_url = "http://audiophonik.tumblr.com";
+$prev_video_ids = explode("\n", file_get_contents("videoid.txt"));
+$cached_video_ids = FALSE;
+
+$video_ids = array();
+$youtube_pattern = '/http:\/\/www.youtube.com\/embed\/(.*)\?/';
+
 $url = $base_url;
 while ($next_pg) {
 	echo "Now retrieving HTML from $url<br />";
 	$result = get_html($url);
-	$content .= $result[0];
-	if (!$result[1]) {
+
+    // Parse result and add to array
+    preg_match_all($youtube_pattern, $result[0], $matches);
+    $test_ids = array_unique($matches[1]);
+
+    $video_ids = array_merge($video_ids, $test_ids);
+    $video_ids = array_unique($video_ids);
+
+    if ($current_pg == 1 and ($test_ids[0] == $prev_video_ids[0])) {
+        // No reason to parse all the other Tumblr pages; just use the previous list
+        $cached_video_ids = TRUE;
+        $video_ids = $prev_video_ids;
+        $next_pg = FALSE;
+    } 
+
+    // If there is no "next page" link, merge the arrays.
+    // Also merge the arrays if the last video ID we'd stored is detected.
+	if (!$result[1] or $next_pg == FALSE) {
 		echo "Ending search and now compiling page.<br />";
 		$next_pg = FALSE;
 	}
 	$url = $base_url . $result[1];
+    $current_pg++;
 }
 
-$youtube_pattern = '/http:\/\/www.youtube.com\/embed\/(.*)\?/';
-
-$result = preg_match_all($youtube_pattern, $content, $matches);
-$video_ids = array_unique($matches[1]);
 $str = "video_ids = [";
 
 foreach ($video_ids as $id => $video_id) {
@@ -222,5 +242,9 @@ $str .= "\tytplayer.loadPlaylist(video_ids);\n";
 
 $output = str_replace("// <REPLACE_WITH_VIDEO_IDS>", $str, $youtube_boilerplate);
 
-file_put_contents("index.html", $output);
+echo $output;
+
+if (!$cached_video_ids) {
+    file_put_contents("videoid.txt", implode("\n", $video_ids));
+}
 
