@@ -1,12 +1,12 @@
 #!/bin/bash
 
 pushd ~
-mkdir -p ~/.irssi/plugins/autorun
-pushd ~/.irssi/plugins
+mkdir -p ~/.irssi/scripts/autorun
+pushd ~/.irssi/scripts
 
 wget http://scripts.irssi.org/scripts/autorejoin.pl
 chmod +x autorejoin.pl
-pushd ~/.irssi/plugins/autorun
+pushd ~/.irssi/scripts/autorun
 ln -snf ../autorejoin.pl .
 popd
 
