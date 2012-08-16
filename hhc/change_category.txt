@@ -2,7 +2,7 @@
 
 -- First, get all the categories in the system:
 
-select tid, name from term_data where vid = 7;
+select tid, name from term_data where vid = 7 order by name;
 
 -- Then get the offending category based on the brand/pattern
 
