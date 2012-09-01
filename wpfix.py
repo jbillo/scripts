@@ -5,6 +5,10 @@
 
 """
 Version history:
+	2012-09-01 (jbillo):
+		Add customizable Apache/httpd user for non-Debian distributions.
+		Defaults to "www-data".
+
     2012-01-10 (jbillo):
         Second release. Look for WP_DEBUG *or* WPLANG as WordPress 3.3.x
         apparently doesn't include WPLANG in a stock wp-config.php file.
@@ -22,9 +26,10 @@ def usage():
 
     print """%s usage:
 
-%s wordpress_dir
+%s wordpress_dir [apache_user]
 
 wordpress_dir       The directory WordPress resides in, to be fixed for auto-update
+apache_user			The name of the Apache user. Default is www-data.
 
 """ % (app_name, app_name)
     sys.exit(0)
@@ -36,6 +41,12 @@ if os.getuid() != 0:
     print "E_ROOT: You must be root to use this utility.\n"
     usage()
 
+# Check for     
+if 2 in sys.argv:
+	apache_user = sys.argv[2]
+else:
+	apache_user = "www-data"
+
 wordpress_dir = sys.argv[1].strip()
 if wordpress_dir[-1] == '/':
     wordpress_dir = wordpress_dir[0:-1]
@@ -46,8 +57,8 @@ os.system("find " + wordpress_dir + " -type f -exec chmod 644 {} \;")
 wp_content_dir = wordpress_dir + "/wp-content"
 wp_content_subdirs = wp_content_dir + "/plugins/ " + wp_content_dir + "/themes/ " + wp_content_dir + "/upgrade/ " + wp_content_dir + "/uploads/"
 
-os.system("chgrp www-data " + wp_content_dir + "/")
-os.system("chgrp www-data " + wp_content_subdirs)
+os.system("chgrp " + apache_user + " + wp_content_dir + "/")
+os.system("chgrp " + apache_user + " + wp_content_subdirs)
 os.system("chmod -R g+w " + wp_content_dir + "/")
 os.system("chmod -R g+w " + wp_content_subdirs)
 os.system("chmod -R g+w " + wordpress_dir)
