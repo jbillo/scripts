@@ -12,4 +12,4 @@ BACKUP_DIR=/mnt/backups/host/
   --exclude-globbing-filelist='/root/backup-exclusions.txt' \
  / \
  ${BACKUP_USER}@${BACKUP_HOST}::${BACKUP_DIR} \
- 2>&1 | grep -v 'does not match source$'
+ 2>&1 | grep -v 'does not match source$' | grep -v 'DeprecationWarning' | grep -v 'os.popen2'
