@@ -92,7 +92,7 @@ wp_content_dir = wordpress_dir + "/wp-content"
 
 # Apply write permission to wp_content directory
 os.system("chmod g+w %s" % wp_content_dir)
-os.system("chmod g+w %s/plugins" % wp_content_dir)
+os.system("chmod -R g+w %s/plugins" % wp_content_dir)
 os.system("chmod -R g+w %s/themes" % wp_content_dir)
 os.system("chmod -R g+w %s/uploads" % wp_content_dir)
 os.system("chmod -R g+w %s/upgrade" % wp_content_dir)
