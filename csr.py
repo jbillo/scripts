@@ -2,6 +2,10 @@
 import os
 import sys
 
+if os.getuid() != 0:
+    print "E_ROOT: You must be root to use this utility.\n"
+    sys.exit(1)
+
 print "WARNING: For NameCheap, the 'common name' field must be the domain name you would like to activate."
 
 SSL_DIR = "/etc/ssl/"
