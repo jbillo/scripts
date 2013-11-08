@@ -7,6 +7,8 @@ Check the registration status of a given voip.ms account, then return a status c
 Was tested on a Debian 6.0 installation with PHP5 (php5-cli) and Nagios 3.2.1. May need SOAP extensions for PHP.
 
 ## Usage
+* Enable API access to voip.ms in your account and set a password. Also authorize the outbound IP of your Nagios server.
+	* Details and signup at https://www.voip.ms/m/api.php
 * Place the .php files into your Nagios plugins directory. On my Debian install it was `/usr/lib/nagios/plugins`.
 * Edit `check_voipms_regstatus.php` and provide `api_username` and `api_password` variables where indicated.
 * Review the .cfg files and configure Nagios to your specifications. 
