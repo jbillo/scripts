@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 # Modified from http://wiki.voip.ms/article/Registration_status_on_desktop
-include ('./class.voipms.php');
+include ('class.voipms.php');
 
 // Begin user editable settings block
 $api_username = '';		// voip.ms email address
