@@ -9,7 +9,7 @@ if [ -z $1 ]; then
 fi
 
 # Get root
-if [ `whoami` -ne "root" ]; then
+if [[ $EUID -ne 0 ]]; then
 	echo "Must be root to use this script"
 	exit 2
 fi
