@@ -17,11 +17,16 @@ fi
 domain=$1
 
 fn_create_mysql() {
-	dbname=`echo $domain | sed 's/\./_/g'`
+	dbname=`echo $domain | sed 's/\./_/g' | sed 's/-//g'`
+	dbuser=$dbname
  	newpw=`pwgen -s 16 1`
-	echo "Creating database and user as $dbname with password: $newpw"
+	if [[ `echo $dbuser | wc -L` -gt 16 ]]; then
+		# Need to truncate username to 16 characters
+		dbuser=${dbuser:0:16}
+	fi
+	echo "Creating database $dbname as user $dbuser with password: $newpw"
 	echo "Please log in as MySQL root to complete operation"
-	mysql -u root -p mysql -e "CREATE DATABASE IF NOT EXISTS $dbname; GRANT ALL PRIVILEGES ON $dbname.* TO '$dbname'@'localhost' IDENTIFIED BY '$newpw' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+	mysql -u root -p mysql -e "CREATE DATABASE IF NOT EXISTS $dbname; GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost' IDENTIFIED BY '$newpw' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 }
 
 # Create directories
@@ -30,7 +35,8 @@ mkdir -p /var/www/$domain
 
 # Create nginx configuration
 cp /etc/nginx/sites-available/template /etc/nginx/sites-available/$domain
-echo "Now editing the nginx configuration for $domain"
+echo "Now editing the nginx configuration for $domain; merging in name"
+sed -i "s/example\.com/$domain/g" /etc/nginx/sites-available/$domain
 vi /etc/nginx/sites-available/$domain
 
 # Enable site
