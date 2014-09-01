@@ -9,7 +9,7 @@ fi
 # Update all WordPress sites in /var/www, accounting for special directories
 
 update_site() {
-	wpcmd="/usr/bin/wp --allow-root"
+	wpcmd="wp --allow-root"
 	if [ -z $1 ]; then
 		echo "No directory specified to upgrade"
 		return 1
@@ -20,6 +20,10 @@ update_site() {
 	return 0
 }
 
+if [[ ! -z $1 ]]; then
+	update_site $1
+	exit 0
+fi
 
 possible_dirs=`find /var/www -mindepth 1 -maxdepth 1 -type d`
 for dir in $possible_dirs; do
