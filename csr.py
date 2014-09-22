@@ -25,7 +25,7 @@ if len(sys.argv) < 2:
 domain_name = sys.argv[1].strip()
 
 os.system("openssl genrsa -out " + SSL_DIR + domain_name + ".key 2048")
-os.system("openssl req -new -key " + SSL_DIR + domain_name + ".key -out " + SSL_DIR + domain_name + ".csr")
+os.system("openssl req -new -sha256 -key " + SSL_DIR + domain_name + ".key -out " + SSL_DIR + domain_name + ".csr")
 os.system("cat " + SSL_DIR + domain_name + ".csr") 
 
 print "\n\nCSR generation complete"
