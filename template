@@ -1,0 +1,26 @@
+server {
+	listen 80;
+	server_name example.com www.example.com;
+	access_log /var/log/nginx/example.com/access.log;
+	error_log /var/log/nginx/example.com/error.log;
+
+	root /var/www/example.com;
+	include global/restrictions.conf;
+	include global/wordpress.conf;
+}
+
+server {
+	listen 443 ssl;
+	server_name example.com www.example.com;
+	access_log /var/log/nginx/example.com/access.log;
+	error_log /var/log/nginx/example.com/error.log;
+	set $myroot /var/www/example.com;
+	root $myroot;
+
+	include global/restrictions.conf;
+	include global/wordpress.conf;
+
+	ssl_certificate /etc/ssl/www/example.com.crt;
+	ssl_certificate_key /etc/ssl/www/example.com.key;
+	include global/ssl.conf;
+}
