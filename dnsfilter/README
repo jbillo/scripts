@@ -1,0 +1,6 @@
+This directory contains a script and list of domains that are suitable for blocking in a restricted DNS environment.
+
+On the BIND master, put this script in /root, and as root run ./gen.py master
+
+On any slaves, run ./gen.py
+
