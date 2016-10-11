@@ -7,6 +7,8 @@ SLAVE_TEMPLATE = 'zone "%s" { type slave; masters { 10.1.30.32; }; file "slaves/
 
 is_master = len(sys.argv) > 1 and sys.argv[1] == 'master'
 
+print subprocess.check_output(['wget', '-O', '/root/domains.txt', 'https://raw.githubusercontent.com/jbillo/scripts/master/dnsfilter/domains.txt'])
+
 with open('/root/domains.txt', 'r') as fp:
         domains = fp.readlines()
 
