@@ -1,4 +1,4 @@
-docker create \
+docker run \
     --name nzbget \
     -p 6789:6789 \
     -e PUID=1000 -e PGID=1000 \
