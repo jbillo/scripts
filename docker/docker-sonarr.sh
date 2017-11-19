@@ -8,5 +8,6 @@ docker run \
     -v /mnt/ssd/config/sonarr:/config \
     -v /mnt/drobo5n:/mnt/drobo5n \
     -v /mnt/5n2:/mnt/5n2 \
+    -v /mnt/5n2/Downloads/Complete:/downloads \
     --restart unless-stopped \
     linuxserver/sonarr
