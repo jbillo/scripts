@@ -1,4 +1,4 @@
-docker run \ 
+docker run \
   -d \
   --name=plexpy \
   -v /mnt/ssd/config/plexpy:/config \
