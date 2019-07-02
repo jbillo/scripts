@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -x
+
+if [[ -z "$1" ]]; then
+	echo "Specify the name of a container to update"
+	exit 1
+fi
+
+container="$1"
+
+docker stop ${container}
+docker rm ${container}
+
+# get image to update
+image_to_update=`docker image list | grep "${container}" | grep "latest" | head -1 | cut -f 1 -d ' '`
+
+if [[ -z "${image_to_update}" ]]; then
+	echo "No image found to update for ${container}"
+else
+	docker image pull ${image_to_update}
+fi
+
+/usr/local/bin/docker-${container}.sh

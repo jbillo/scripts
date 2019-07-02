@@ -8,5 +8,6 @@ docker run \
     -v /scratch/nzbget/downloads:/scratch/nzbget/downloads \
     -v /mnt/5n2:/mnt/5n2 \
     -v /mnt/drobo5n:/mnt/drobo5n \
+    -v /mnt/seagate8tb:/mnt/seagate8tb \
     --restart unless-stopped \
     linuxserver/nzbget
