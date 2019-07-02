@@ -4,7 +4,6 @@ docker run \
 --name plex \
 --network=host \
 -e TZ="America/Toronto" \
--e PLEX_CLAIM="CLAIM-IIHETL7WFHSHEJTPJ1CL" \
 -v /mnt/ssd/config/plex:/config \
 -v /mnt/ssd/transcode:/transcode \
 -v /mnt/drobo5n:/mnt/drobo5n \
