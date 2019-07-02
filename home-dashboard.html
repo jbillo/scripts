@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>dashboard</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>home dashboard</h1>
+<h2><a href="ssh://192.168.1.10">x3650</a> - primary server (192.168.1.10)</h2>
+<ul>
+  <li><a href="http://192.168.1.10:6789">nzbget</a></li>
+  <li><a href="http://192.168.1.10:8989">Sonarr (TV)</a></li>
+  <li><a href="http://192.168.1.10:7878">Radarr (movies)</a></li>
+  <li><a href="http://192.168.1.10:8181">Tautulli (stats)</a></li>
+  <li><a href="http://192.168.1.10:32400/web/">Plex direct</a></li>
+  <li><a href="http://192.168.1.10:3579">Ombi (requests)</a></li>
+  <li><a href="http://192.168.1.10:80">pi-hole admin</a></li>
+  <li><a href="https://192.168.1.10:8443">UniFi admin</a></li>
+  <li><a href="http://192.168.1.10:8081">Guacamole (RDP)</a></li>
+</ul>
+
+<h2><a href="ssh://192.168.1.5">5017c-mf</a> - secondary server (192.168.1.5)</h2>
+<ul>
+  <li><a href="http://192.168.1.5:32400/web/">Plex direct</a></li>
+</ul>
+
+<h2><a href="ssh://192.168.1.6">firebreak</a> - tertiary server (192.168.1.6)</h2>
+<ul>
+  <li><a href="http://192.168.1.6:32400/web/">Plex direct</a></li>
+</ul>
+
+</body>
+</html>
