@@ -1,0 +1,7 @@
+# Docker fun
+
+Generally, this assumes you have cloned the top level repo into ~/bin.
+
+* update-usr-local-bin.sh: Copy script files into /usr/local/bin/.
+* dockupdate <name>: Download a new image, then terminate the existing Docker container and relaunch it. Accidentally handles partial matching for 'plexinc/pms-docker' vs. linuxserver.io-based containers.
+* docker-<service>.sh: Launch relevant container. Contains my personal mounts for various Drobo appliances.
