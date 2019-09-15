@@ -9,16 +9,17 @@ fi
 
 container="$1"
 
-docker stop ${container}
-docker rm ${container}
-
 # get image to update
 image_to_update=`docker image list | grep "${container}" | grep "latest" | head -1 | cut -f 1 -d ' '`
 
 if [[ -z "${image_to_update}" ]]; then
 	echo "No image found to update for ${container}"
+        exit 2
 else
 	docker image pull ${image_to_update}
 fi
+
+docker stop ${container}
+docker rm ${container}
 
 /usr/local/bin/docker-${container}.sh
